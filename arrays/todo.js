@@ -1,12 +1,52 @@
-const todos = ['Order cat food', 'Clean kitchen', 'Buy food', 'Do work', 'Exercise']
+const todos = [{
+    text: 'Order cat food',
+    completed: false
+}, {
+    text: 'Clean kitchen',
+    completed: true
+}, {
+    text: 'Buy food',
+    completed: true
+}, {
+    text: 'Do work',
+    completed: false
+}, {
+    text: 'Exercise',
+    completed: true
+}]
 
-todos.splice(2, 1)
-todos.push('Buy coffee')
-todos.shift()
+const sortTodos = function (todos) {
+    todos.sort(function (a, b) {
+        if (!a.completed && b.completed) {
+            return -1
+        } else if (!b.completed && a.completed) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+}
 
-console.log(`You have ${todos.length} todos!`)
+const deleteTodo = function (todos, todoText) {
+    const index = todos.findIndex(function (todo) {
+        return todo.text.toLowerCase() === todoText.toLowerCase()
+    })
 
-todos.forEach(function (todo, index) {
-    const num = index + 1
-    console.log(`${num}. ${todo}`)
-})
+    if (index > -1) {
+        todos.splice(index, 1)
+    }
+}
+
+const getThingsToDo = function (todos) {
+    return todos.filter(function (todo) {
+        return !todo.completed
+    })
+}
+
+sortTodos(todos)
+console.log(todos)
+
+// console.log(getThingsToDo(todos))
+ 
+// deleteTodo(todos, '!!buy food')
+// console.log(todos)
